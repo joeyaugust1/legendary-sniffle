@@ -1,6 +1,7 @@
 /**
  * Developer Audit Dashboard
  * Automated playtesting and registry validation
+ * Mobile-optimized version
  */
 
 class AuditDashboard {
@@ -8,8 +9,14 @@ class AuditDashboard {
         this.isVisible = false;
         this.playtestResults = [];
         this.playtestInProgress = false;
+        this.isMobile = this.detectMobile();
         this.createDashboardUI();
         this.attachEventListeners();
+    }
+
+    detectMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               (window.innerWidth <= 768);
     }
 
     createDashboardUI() {
@@ -18,14 +25,14 @@ class AuditDashboard {
         dashboard.className = 'audit-dashboard hidden';
         dashboard.innerHTML = `
             <div class="audit-header">
-                <h2>🔧 Developer Audit Dashboard</h2>
-                <button id="closeAuditBtn" class="close-btn">✕</button>
+                <h2>\ud83d\udd27 Audit</h2>
+                <button id="closeAuditBtn" class="close-btn">\u2715</button>
             </div>
 
             <div class="audit-tabs">
                 <button class="audit-tab active" data-tab="registry">Registry</button>
-                <button class="audit-tab" data-tab="playtest">Playtesting</button>
-                <button class="audit-tab" data-tab="statistics">Statistics</button>
+                <button class="audit-tab" data-tab="playtest">Playtest</button>
+                <button class="audit-tab" data-tab="statistics">Stats</button>
                 <button class="audit-tab" data-tab="conditions">Win/Loss</button>
             </div>
 
@@ -33,17 +40,17 @@ class AuditDashboard {
             <div class="audit-content" id="registryTab">
                 <h3>Registry Validation</h3>
                 <div id="registryValidation" class="validation-display"></div>
-                <button id="validateRegistryBtn" class="btn btn-audit">Validate Registry</button>
-                <button id="exportRegistryBtn" class="btn btn-audit">Export JSON</button>
+                <button id="validateRegistryBtn" class="btn btn-audit">Validate</button>
+                <button id="exportRegistryBtn" class="btn btn-audit">Export</button>
             </div>
 
             <!-- Playtest Tab -->
             <div class="audit-content hidden" id="playtestTab">
                 <h3>Automated Playtesting</h3>
                 <div class="playtest-controls">
-                    <label>Number of simulations:</label>
-                    <input type="number" id="playtestCount" value="5" min="1" max="100">
-                    <button id="startPlaytestBtn" class="btn btn-audit">Start Playtest</button>
+                    <label>Simulations:</label>
+                    <input type="number" id="playtestCount" value="5" min="1" max="50">
+                    <button id="startPlaytestBtn" class="btn btn-audit">Start</button>
                     <button id="stopPlaytestBtn" class="btn btn-audit" disabled>Stop</button>
                 </div>
                 <div id="playtestProgress" class="progress-display"></div>
@@ -67,12 +74,29 @@ class AuditDashboard {
     }
 
     attachEventListeners() {
-        // Toggle dashboard
+        // Toggle dashboard with keyboard or gesture
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === '`') {
                 this.toggleVisibility();
             }
         });
+
+        // Mobile menu toggle
+        if (this.isMobile) {
+            // Add swipe support
+            let touchStartX = 0;
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            });
+
+            document.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].clientX;
+                // Swipe from right edge to open
+                if (window.innerWidth - touchStartX < 50 && touchEndX > window.innerWidth - 50) {
+                    if (!this.isVisible) this.toggleVisibility();
+                }
+            });
+        }
 
         // Close button
         document.getElementById('closeAuditBtn').addEventListener('click', () => this.toggleVisibility());
@@ -120,7 +144,7 @@ class AuditDashboard {
 
         let html = `
             <div class="validation-result ${validation.isValid ? 'valid' : 'invalid'}">
-                <h4>${validation.isValid ? '✅ Registry Valid' : '⚠️ Registry Issues Found'}</h4>
+                <h4>${validation.isValid ? '✅ Valid' : '⚠️ Issues'}</h4>
                 <p><strong>Summary:</strong></p>
                 <ul>
                     <li>Variables: ${validation.summary.totalVariables}</li>
@@ -134,7 +158,7 @@ class AuditDashboard {
         if (validation.issues.length > 0) {
             html += `<p><strong>Issues:</strong></p><ul>`;
             validation.issues.forEach(issue => {
-                html += `<li class="error-item">${issue}</li>`;
+                html += `<li class="error-item">⚠️ ${issue}</li>`;
             });
             html += `</ul>`;
         }
@@ -152,10 +176,11 @@ class AuditDashboard {
         a.href = url;
         a.download = `registry-dump-${Date.now()}.json`;
         a.click();
+        alert('Registry exported successfully!');
     }
 
     async startPlaytest() {
-        const count = parseInt(document.getElementById('playtestCount').value);
+        const count = Math.min(parseInt(document.getElementById('playtestCount').value), 50);
         this.playtestInProgress = true;
         document.getElementById('startPlaytestBtn').disabled = true;
         document.getElementById('stopPlaytestBtn').disabled = false;
@@ -176,7 +201,8 @@ class AuditDashboard {
         };
 
         for (let i = 0; i < count && this.playtestInProgress; i++) {
-            progressDisplay.innerHTML = `<p>Playtest ${i + 1}/${count}...</p><div class="progress-bar" style="width: ${((i + 1) / count) * 100}%"></div>`;
+            const progress = ((i + 1) / count) * 100;
+            progressDisplay.innerHTML = `<p>Game ${i + 1}/${count}</p><div class="progress-bar" style="width: ${progress}%"></div>`;
 
             const result = await this.runSinglePlaytest();
             results.gameDetails.push(result);
@@ -185,9 +211,9 @@ class AuditDashboard {
             if (result.won) results.wins++;
             else results.losses++;
 
-            results.avgTurns = (results.avgTurns * (i) + result.turns) / (i + 1);
+            results.avgTurns = (results.avgTurns * i + result.turns) / (i + 1);
 
-            await new Promise(resolve => setTimeout(resolve, 50));
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
 
         this.playtestResults = results;
@@ -200,6 +226,8 @@ class AuditDashboard {
 
     stopPlaytest() {
         this.playtestInProgress = false;
+        document.getElementById('startPlaytestBtn').disabled = false;
+        document.getElementById('stopPlaytestBtn').disabled = true;
     }
 
     async runSinglePlaytest() {
@@ -236,10 +264,10 @@ class AuditDashboard {
 
         let html = `
             <div class="playtest-summary">
-                <h4>Playtest Results</h4>
+                <h4>Results Summary</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <span class="label">Total Tests:</span>
+                        <span class="label">Completed:</span>
                         <span class="value">${results.completed}/${results.totalTests}</span>
                     </div>
                     <div class="summary-item">
@@ -262,33 +290,29 @@ class AuditDashboard {
             </div>
 
             <div class="playtest-details">
-                <h4>Game Details</h4>
+                <h4>Details</h4>
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th>Game #</th>
-                            <th>Result</th>
+                            <th>#</th>
+                            <th>R</th>
                             <th>Turns</th>
-                            <th>Final GDP</th>
-                            <th>Inflation</th>
-                            <th>Unemployment</th>
-                            <th>Debt-to-GDP</th>
+                            <th>GDP</th>
+                            <th>Inf</th>
                         </tr>
                     </thead>
                     <tbody>
         `;
 
-        results.gameDetails.forEach((game, idx) => {
+        results.gameDetails.slice(0, 15).forEach((game, idx) => {
             const resultEmoji = game.won ? '✅' : '❌';
             html += `
                 <tr>
                     <td>${idx + 1}</td>
                     <td>${resultEmoji}</td>
                     <td>${game.turns}</td>
-                    <td>$${game.finalGdp.toFixed(1)}T</td>
+                    <td>$${game.finalGdp.toFixed(1)}</td>
                     <td>${game.finalInflation.toFixed(1)}%</td>
-                    <td>${game.finalUnemployment.toFixed(1)}%</td>
-                    <td>${game.debtToGdp.toFixed(0)}%</td>
                 </tr>
             `;
         });
@@ -296,6 +320,7 @@ class AuditDashboard {
         html += `
                     </tbody>
                 </table>
+                ${results.completed > 15 ? `<p style="text-align: center; font-size: 0.8em; margin-top: 5px;">Showing 15 of ${results.completed} games</p>` : ''}
             </div>
         `;
 
@@ -309,18 +334,18 @@ class AuditDashboard {
         let html = `
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h4>Overall Statistics</h4>
+                    <h4>Overall</h4>
                     <ul>
-                        <li>Total Games: ${stats.totalGamesPlayed}</li>
-                        <li>Games Won: ${stats.gamesWon}</li>
-                        <li>Games Lost: ${stats.gamesLost}</li>
+                        <li>Games: ${stats.totalGamesPlayed}</li>
+                        <li>Won: ${stats.gamesWon}</li>
+                        <li>Lost: ${stats.gamesLost}</li>
                         <li>Win Rate: ${stats.winRate}%</li>
-                        <li>Avg Game Length: ${stats.averageGameLength} turns</li>
+                        <li>Avg Length: ${stats.averageGameLength} turns</li>
                     </ul>
                 </div>
 
                 <div class="stat-card">
-                    <h4>Choice Frequency</h4>
+                    <h4>Choices</h4>
                     <ul>
         `;
 
@@ -338,9 +363,9 @@ class AuditDashboard {
                     <ul>
         `;
 
-        Object.entries(stats.variableRanges).forEach(([varKey, range]) => {
+        Object.entries(stats.variableRanges).slice(0, 5).forEach(([varKey, range]) => {
             const varObj = gameRegistry.getVariable(varKey);
-            html += `<li><strong>${varObj.name}</strong><br>Min: ${range.min} | Max: ${range.max} | Avg: ${range.average}</li>`;
+            html += `<li><strong>${varObj.name}</strong><br>A: ${range.average}</li>`;
         });
 
         html += `

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>Economy Simulator with Registry & Audit</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -10,7 +10,7 @@
     <div class="container">
         <header>
             <h1>🏛️ Economy Simulator</h1>
-            <p class="subtitle">Year <span id="year">1</span> | Press Ctrl+` to open audit dashboard</p>
+            <p class="subtitle">Year <span id="year">1</span> | Ctrl+` to audit</p>
         </header>
 
         <!-- Stats Dashboard -->
@@ -83,7 +83,7 @@
         <!-- Game Controls -->
         <div class="controls">
             <button id="nextTurnBtn" class="btn btn-primary">Next Quarter →</button>
-            <button id="resetBtn" class="btn btn-secondary">Reset Game</button>
+            <button id="resetBtn" class="btn btn-secondary">Reset</button>
         </div>
 
         <!-- History/Trends -->
@@ -100,16 +100,13 @@
         <div class="tutorial-section">
             <h2>How to Play</h2>
             <p>
-                <strong>Objective:</strong> Balance the economy by achieving 2+ win conditions while avoiding loss conditions!
+                <strong>Objective:</strong> Achieve 2+ win conditions while avoiding loss conditions!
                 <br><br>
-                <strong>Win Conditions:</strong>
-                Achieve economic stability (inflation 1-3%, unemployment <5%), create a budget surplus, reduce debt below 60%, or hit the "Goldilocks Economy" (all indicators optimal).
+                <strong>Win Conditions:</strong> Economic stability, budget surplus, debt reduction, or Goldilocks Economy.
                 <br><br>
-                <strong>Loss Conditions:</strong>
-                Avoid severe recession (unemployment >8%), hyperinflation (>15%), debt crisis (>130%), stock market crash (>50% drop), or civil unrest (confidence <20).
+                <strong>Loss Conditions:</strong> Avoid recession, hyperinflation, debt crisis, market crash, or civil unrest.
                 <br><br>
-                <strong>Mechanics:</strong> Each decision affects multiple economic variables. Monitor feedback and plan ahead!
-                <strong>Debug:</strong> Press Ctrl+` to open the Developer Audit Dashboard for playtesting and registry validation.
+                <strong>Mechanics:</strong> Each decision affects multiple variables. Plan ahead!
             </p>
         </div>
     </div>

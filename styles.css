@@ -9,74 +9,81 @@ body {
     background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
     color: #e0e0e0;
     line-height: 1.6;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
     border-bottom: 2px solid #00d4ff;
 }
 
 header h1 {
-    font-size: 2.5em;
+    font-size: clamp(1.5em, 5vw, 2.5em);
     margin-bottom: 5px;
     color: #00d4ff;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
 
 .subtitle {
-    font-size: 1.1em;
+    font-size: clamp(0.8em, 3vw, 1.1em);
     color: #888;
 }
 
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .stat-block {
     background: linear-gradient(135deg, #2a2a3e 0%, #353550 100%);
     border: 1px solid #00d4ff;
     border-radius: 8px;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     transition: all 0.3s ease;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .stat-block:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
     border-color: #00ff88;
 }
 
 .stat-label {
-    font-size: 0.85em;
+    font-size: clamp(0.65em, 2vw, 0.85em);
     color: #888;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 8px;
-}
-
-.stat-value {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #00ff88;
     margin-bottom: 5px;
 }
 
+.stat-value {
+    font-size: clamp(1.2em, 4vw, 1.8em);
+    font-weight: bold;
+    color: #00ff88;
+    margin-bottom: 3px;
+}
+
 .stat-change {
-    font-size: 0.9em;
-    margin-top: 5px;
+    font-size: clamp(0.65em, 2vw, 0.9em);
+    margin-top: 3px;
 }
 
 .stat-change.positive {
@@ -95,26 +102,26 @@ header h1 {
     background: linear-gradient(135deg, #2a2a3e 0%, #353550 100%);
     border: 1px solid #00d4ff;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 15px;
+    margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
 }
 
 .events-section h2 {
     color: #00d4ff;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: clamp(1em, 4vw, 1.2em);
 }
 
 .event-display {
     background: rgba(0, 0, 0, 0.3);
     border-left: 3px solid #00ff88;
-    padding: 15px;
+    padding: 12px;
     border-radius: 4px;
-    font-size: 0.95em;
-    line-height: 1.8;
+    font-size: clamp(0.8em, 3vw, 0.95em);
+    line-height: 1.6;
     color: #e0e0e0;
 }
 
@@ -122,35 +129,38 @@ header h1 {
     background: linear-gradient(135deg, #2a2a3e 0%, #353550 100%);
     border: 1px solid #00d4ff;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 15px;
+    margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
 }
 
 .decisions-section h2 {
     color: #00d4ff;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: clamp(1em, 4vw, 1.2em);
 }
 
 .decision-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
 }
 
 .decision-card {
     background: rgba(0, 0, 0, 0.3);
     border: 2px solid #444;
     border-radius: 6px;
-    padding: 15px;
+    padding: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.decision-card:hover {
+.decision-card:hover,
+.decision-card:active {
     border-color: #00d4ff;
     background: rgba(0, 212, 255, 0.1);
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
@@ -165,43 +175,46 @@ header h1 {
 .decision-title {
     font-weight: bold;
     color: #00d4ff;
-    margin-bottom: 8px;
-    font-size: 1em;
+    margin-bottom: 6px;
+    font-size: clamp(0.85em, 3vw, 1em);
 }
 
 .decision-desc {
-    font-size: 0.85em;
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
     color: #aaa;
-    margin-bottom: 10px;
-    line-height: 1.5;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
 .risk-level {
-    font-size: 0.8em;
-    margin-bottom: 8px;
+    font-size: clamp(0.7em, 2vw, 0.8em);
+    margin-bottom: 6px;
     font-weight: bold;
 }
 
 .decision-effects {
     display: grid;
-    gap: 5px;
-    margin-top: 10px;
-    padding-top: 10px;
+    gap: 3px;
+    margin-top: 8px;
+    padding-top: 8px;
     border-top: 1px solid #555;
 }
 
 .effect-item {
-    font-size: 0.8em;
+    font-size: clamp(0.7em, 2vw, 0.8em);
     display: flex;
     justify-content: space-between;
+    gap: 5px;
 }
 
 .effect-label {
     color: #888;
+    flex: 1;
 }
 
 .effect-value {
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .effect-value.positive {
@@ -214,15 +227,15 @@ header h1 {
 
 .controls {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .btn {
-    padding: 12px 30px;
-    font-size: 1em;
+    padding: clamp(8px, 3vw, 12px) clamp(15px, 5vw, 30px);
+    font-size: clamp(0.85em, 3vw, 1em);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -231,14 +244,19 @@ header h1 {
     letter-spacing: 1px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
     background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
     color: #000;
+    flex: 1;
+    min-width: 120px;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
 }
@@ -247,14 +265,18 @@ header h1 {
     background: #555;
     color: #999;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .btn-secondary {
     background: linear-gradient(135deg, #555 0%, #777 100%);
     color: #fff;
+    flex: 1;
+    min-width: 120px;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:active {
     background: linear-gradient(135deg, #666 0%, #888 100%);
     transform: translateY(-2px);
 }
@@ -267,31 +289,31 @@ header h1 {
     background: linear-gradient(135deg, #2a2a3e 0%, #353550 100%);
     border: 1px solid #00d4ff;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 15px;
+    margin-bottom: 20px;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
 }
 
 .trends-section h2 {
     color: #00d4ff;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: clamp(1em, 4vw, 1.2em);
 }
 
 .trend-chart {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .trend-line {
     background: rgba(0, 0, 0, 0.3);
     border-left: 4px solid #00d4ff;
-    padding: 12px;
+    padding: 10px;
     border-radius: 4px;
-    font-size: 0.95em;
+    font-size: clamp(0.8em, 3vw, 0.95em);
     color: #e0e0e0;
 }
 
@@ -299,21 +321,21 @@ header h1 {
     background: linear-gradient(135deg, #2a2a3e 0%, #353550 100%);
     border: 1px solid #00d4ff;
     border-radius: 8px;
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
 }
 
 .tutorial-section h2 {
     color: #00d4ff;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: clamp(1em, 4vw, 1.2em);
 }
 
 .tutorial-section p {
-    font-size: 0.95em;
-    line-height: 1.8;
+    font-size: clamp(0.8em, 3vw, 0.95em);
+    line-height: 1.6;
     color: #e0e0e0;
 }
 
@@ -325,13 +347,15 @@ header h1 {
 
 .audit-dashboard {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 600px;
-    max-height: 80vh;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 100vh;
     background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
     border: 2px solid #ff00ff;
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
     display: flex;
     flex-direction: column;
@@ -348,51 +372,63 @@ header h1 {
 .audit-header {
     background: linear-gradient(135deg, #ff00ff 0%, #00d4ff 100%);
     color: #000;
-    padding: 15px;
+    padding: clamp(10px, 3vw, 15px);
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #ff00ff;
+    flex-shrink: 0;
 }
 
 .audit-header h2 {
-    font-size: 1.3em;
+    font-size: clamp(1em, 4vw, 1.3em);
     margin: 0;
 }
 
 .close-btn {
     background: none;
     border: none;
-    font-size: 1.5em;
+    font-size: clamp(1.2em, 4vw, 1.5em);
     cursor: pointer;
     color: #000;
     font-weight: bold;
+    padding: 5px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.close-btn:hover {
+.close-btn:hover,
+.close-btn:active {
     transform: scale(1.2);
 }
 
 .audit-tabs {
     display: flex;
-    gap: 5px;
+    gap: 3px;
     background: rgba(0, 0, 0, 0.3);
-    padding: 10px;
+    padding: 8px;
     border-bottom: 1px solid #444;
+    flex-shrink: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .audit-tab {
     background: rgba(0, 212, 255, 0.2);
     border: 1px solid #00d4ff;
     color: #00d4ff;
-    padding: 8px 12px;
+    padding: clamp(6px, 2vw, 8px) clamp(8px, 2vw, 12px);
     cursor: pointer;
     border-radius: 4px;
-    font-size: 0.85em;
+    font-size: clamp(0.7em, 2.5vw, 0.85em);
     transition: all 0.3s ease;
+    white-space: nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.audit-tab:hover {
+.audit-tab:hover,
+.audit-tab:active {
     background: rgba(0, 212, 255, 0.4);
 }
 
@@ -405,8 +441,9 @@ header h1 {
 .audit-content {
     flex: 1;
     overflow-y: auto;
-    padding: 15px;
-    font-size: 0.85em;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px;
+    font-size: clamp(0.8em, 3vw, 0.85em);
 }
 
 .audit-content.hidden {
@@ -416,7 +453,7 @@ header h1 {
 .audit-content h3 {
     color: #00d4ff;
     margin-bottom: 10px;
-    font-size: 1.1em;
+    font-size: clamp(0.95em, 3.5vw, 1.1em);
 }
 
 .validation-display,
@@ -426,16 +463,17 @@ header h1 {
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid #444;
     border-radius: 6px;
-    padding: 12px;
+    padding: 10px;
     margin-bottom: 10px;
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .validation-result {
-    padding: 12px;
+    padding: 10px;
     border-radius: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .validation-result.valid {
@@ -451,16 +489,18 @@ header h1 {
 }
 
 .validation-result h4 {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-size: clamp(0.85em, 3vw, 0.95em);
 }
 
 .validation-result ul {
-    margin-left: 20px;
-    margin-bottom: 8px;
+    margin-left: 15px;
+    margin-bottom: 6px;
 }
 
 .validation-result li {
-    margin: 4px 0;
+    margin: 2px 0;
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
 }
 
 .error-item {
@@ -469,36 +509,43 @@ header h1 {
 
 .playtest-controls {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 12px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .playtest-controls label {
     color: #00d4ff;
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
 }
 
 .playtest-controls input {
-    padding: 6px;
+    padding: clamp(4px, 2vw, 6px);
     border: 1px solid #00d4ff;
     background: rgba(0, 212, 255, 0.1);
     color: #e0e0e0;
     border-radius: 4px;
-    width: 60px;
+    width: clamp(50px, 15vw, 70px);
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
 }
 
 .btn-audit {
     background: linear-gradient(135deg, #00d4ff 0%, #ff00ff 100%);
     color: #000;
-    padding: 8px 12px;
-    font-size: 0.85em;
+    padding: clamp(6px, 2vw, 8px) clamp(10px, 3vw, 12px);
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn-audit:hover {
+.btn-audit:hover,
+.btn-audit:active {
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
 
@@ -506,18 +553,24 @@ header h1 {
     background: #555;
     color: #999;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .progress-display {
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid #00d4ff;
     border-radius: 6px;
-    padding: 10px;
+    padding: 8px;
     margin-bottom: 10px;
 }
 
+.progress-display p {
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
+    margin-bottom: 5px;
+}
+
 .progress-bar {
-    height: 20px;
+    height: 15px;
     background: linear-gradient(90deg, #00d4ff 0%, #00ff88 100%);
     border-radius: 3px;
     margin-top: 5px;
@@ -528,35 +581,39 @@ header h1 {
     background: rgba(0, 212, 255, 0.1);
     border: 1px solid #00d4ff;
     border-radius: 6px;
-    padding: 12px;
-    margin-bottom: 15px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.playtest-summary h4 {
+    font-size: clamp(0.85em, 3vw, 0.95em);
+    margin-bottom: 8px;
 }
 
 .summary-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
 }
 
 .summary-item {
     display: flex;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.3);
-    padding: 8px;
+    padding: 6px;
     border-radius: 4px;
     border: 1px solid #555;
 }
 
 .summary-item .label {
     color: #888;
-    font-size: 0.8em;
+    font-size: clamp(0.7em, 2vw, 0.8em);
 }
 
 .summary-item .value {
     color: #00d4ff;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: clamp(0.9em, 3vw, 1.2em);
 }
 
 .summary-item .value.success {
@@ -570,14 +627,15 @@ header h1 {
 .results-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 0.8em;
+    margin-top: 8px;
+    font-size: clamp(0.7em, 2vw, 0.8em);
+    overflow-x: auto;
 }
 
 .results-table th,
 .results-table td {
     border: 1px solid #555;
-    padding: 6px;
+    padding: 4px;
     text-align: left;
 }
 
@@ -593,19 +651,20 @@ header h1 {
 
 .stats-grid {
     display: grid;
-    gap: 15px;
+    gap: 12px;
 }
 
 .stat-card {
     background: rgba(0, 212, 255, 0.1);
     border: 1px solid #00d4ff;
     border-radius: 6px;
-    padding: 12px;
+    padding: 10px;
 }
 
 .stat-card h4 {
     color: #00ff88;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: clamp(0.85em, 3vw, 0.95em);
 }
 
 .stat-card ul {
@@ -615,54 +674,59 @@ header h1 {
 }
 
 .stat-card li {
-    margin: 6px 0;
+    margin: 4px 0;
     color: #e0e0e0;
-    font-size: 0.9em;
+    font-size: clamp(0.75em, 2.5vw, 0.85em);
 }
 
 .conditions-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: 1fr;
+    gap: 12px;
 }
 
 .conditions-section h4 {
     color: #00d4ff;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: clamp(0.85em, 3vw, 0.95em);
 }
 
 .condition-item {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid #555;
     border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 8px;
+    padding: 8px;
+    margin-bottom: 6px;
 }
 
 .condition-item strong {
     color: #00ff88;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    font-size: clamp(0.8em, 2.5vw, 0.9em);
 }
 
 .condition-item p {
-    margin: 4px 0;
+    margin: 2px 0;
     color: #ccc;
-    font-size: 0.85em;
+    font-size: clamp(0.75em, 2vw, 0.85em);
 }
 
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.8em;
+.playtest-details h4 {
+    font-size: clamp(0.85em, 3vw, 0.95em);
+    margin-bottom: 8px;
+}
+
+/* ===================== RESPONSIVE UTILITIES ===================== */
+
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
     }
 
-    .dashboard {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 10px;
-    }
-
-    .stat-value {
-        font-size: 1.4em;
+    .audit-dashboard {
+        max-width: 100%;
+        border-radius: 0;
     }
 
     .decision-grid {
@@ -670,20 +734,99 @@ header h1 {
     }
 
     .controls {
-        flex-direction: column;
+        gap: 8px;
+        padding: 0 5px;
     }
 
     .btn {
-        width: 100%;
+        min-width: auto;
+        flex: 1;
     }
 
-    .audit-dashboard {
-        width: 95vw;
-        bottom: 10px;
-        right: 10px;
+    .playtest-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .playtest-controls input,
+    .playtest-controls label {
+        width: 100%;
     }
 
     .conditions-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 8px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+
+    .audit-dashboard {
+        max-width: 95vw;
+        max-height: 90vh;
+    }
+
+    .decision-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .dashboard {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    }
+
+    .decision-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .btn,
+    .decision-card,
+    .audit-tab {
+        padding: clamp(10px, 3vw, 14px);
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .decision-card {
+        min-height: auto;
+    }
+
+    .stat-block {
+        min-height: 120px;
+    }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 500px) {
+    header {
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+
+    .stat-block {
+        min-height: 90px;
+        padding: 8px;
+    }
+
+    .event-display,
+    .trend-line {
+        padding: 8px;
     }
 }
