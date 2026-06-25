@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economy Simulator with Registry & Audit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏛️ Economy Simulator</h1>
+            <p class="subtitle">Year <span id="year">1</span> | Press Ctrl+` to open audit dashboard</p>
+        </header>
+
+        <!-- Stats Dashboard -->
+        <div class="dashboard">
+            <div class="stat-block">
+                <div class="stat-label">GDP</div>
+                <div class="stat-value" id="gdp">$10.0T</div>
+                <div class="stat-change" id="gdpChange">+0%</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Inflation</div>
+                <div class="stat-value" id="inflation">2.0%</div>
+                <div class="stat-change" id="inflationChange">+0.0%</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Unemployment</div>
+                <div class="stat-value" id="unemployment">4.5%</div>
+                <div class="stat-change" id="unemploymentChange">+0.0%</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Interest Rate</div>
+                <div class="stat-value" id="interestRate">3.5%</div>
+                <div class="stat-change" id="interestRateChange">+0.0%</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Debt-to-GDP</div>
+                <div class="stat-value" id="debtToGdp">65%</div>
+                <div class="stat-change" id="debtToGdpChange">+0%</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Consumer Confidence</div>
+                <div class="stat-value" id="consumerConfidence">75</div>
+                <div class="stat-change" id="consumerConfidenceChange">+0</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Stock Market</div>
+                <div class="stat-value" id="stockMarket">12,500</div>
+                <div class="stat-change" id="stockMarketChange">+0%</div>
+            </div>
+
+            <div class="stat-block">
+                <div class="stat-label">Budget Deficit</div>
+                <div class="stat-value" id="budgetDeficit">-5.2%</div>
+                <div class="stat-change" id="budgetDeficitChange">+0.0%</div>
+            </div>
+        </div>
+
+        <!-- Game Events -->
+        <div class="events-section">
+            <h2>Current Events</h2>
+            <div class="event-display" id="eventDisplay">
+                Welcome to the Economy Simulator! Make strategic decisions to manage the economy.
+            </div>
+        </div>
+
+        <!-- Decision Panel -->
+        <div class="decisions-section">
+            <h2>Policy Decisions</h2>
+            <div class="decision-grid" id="decisionGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Game Controls -->
+        <div class="controls">
+            <button id="nextTurnBtn" class="btn btn-primary">Next Quarter →</button>
+            <button id="resetBtn" class="btn btn-secondary">Reset Game</button>
+        </div>
+
+        <!-- History/Trends -->
+        <div class="trends-section">
+            <h2>Trends</h2>
+            <div class="trend-chart" id="trendChart">
+                <div class="trend-line gdp-trend">GDP Growth: Stable</div>
+                <div class="trend-line inflation-trend">Inflation: Controlled</div>
+                <div class="trend-line unemployment-trend">Unemployment: Good</div>
+            </div>
+        </div>
+
+        <!-- Tutorial -->
+        <div class="tutorial-section">
+            <h2>How to Play</h2>
+            <p>
+                <strong>Objective:</strong> Balance the economy by achieving 2+ win conditions while avoiding loss conditions!
+                <br><br>
+                <strong>Win Conditions:</strong>
+                Achieve economic stability (inflation 1-3%, unemployment <5%), create a budget surplus, reduce debt below 60%, or hit the "Goldilocks Economy" (all indicators optimal).
+                <br><br>
+                <strong>Loss Conditions:</strong>
+                Avoid severe recession (unemployment >8%), hyperinflation (>15%), debt crisis (>130%), stock market crash (>50% drop), or civil unrest (confidence <20).
+                <br><br>
+                <strong>Mechanics:</strong> Each decision affects multiple economic variables. Monitor feedback and plan ahead!
+                <strong>Debug:</strong> Press Ctrl+` to open the Developer Audit Dashboard for playtesting and registry validation.
+            </p>
+        </div>
+    </div>
+
+    <script src="GameRegistry.js"></script>
+    <script src="game-updated.js"></script>
+    <script src="AuditDashboard.js"></script>
+</body>
+</html>
